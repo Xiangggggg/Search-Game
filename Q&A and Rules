@@ -1,0 +1,21 @@
+Rules (so far):
+1. Searcher goal: collect half of the coins
+2. Monster goal: kill searcher
+3. After each turn, each player can put "light spots" which will reveal
+whatever is there. Anything that walks over these light spots (besides the
+one who put it) will be visible to the other player, including coins. 
+ 
+
+Questions:
+What is the ratio of coins to size?
+What is the ratio of number of moves per turn to size?
+Should the monster have more moves than the player?
+Should coins be randomly generated or generated in some pattern?
+Should player positions be randomly generated?
+How many "light spots" can each player put down per turn (based on size of board)?
+Should the light spots increase as the number of moves increases?
+Should there be a move limit that, when reached, makes the monster win by
+default to limit game time?
+If the player goes out of boundry, should they be able to reappear on the opposite
+side like in those types of games? ex: If I past the bottom boundry, I end up
+at the top.
