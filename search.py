@@ -46,7 +46,7 @@ def move(bo,pos,m,p): #insert bo=board,pos=position,m=move decision,p=which play
 #moving setup
 def moveinput(b,p,c):
     while True:
-        if p == 2: print("Searcher's Turn (u/d/l/r)")
+        if p == 1: print("Searcher's Turn (u/d/l/r)")
         else: print("Monster's Turn (u/d/l/r)")
         m = input()
         if move(b,c,m,p): return
@@ -79,10 +79,10 @@ mc = [size-1,size-1]
 #actual game
 while True:
     printboard(b)
-    moveinput(b,2,sc)
+    moveinput(b,1,sc)
     if checkcoin(): cc -= 1
     print("Coins left: %s" % cc)
     if wincond(): break
     printboard(b2)
-    moveinput(b2,3,mc)
+    moveinput(b2,2,mc)
     if wincond(): break
