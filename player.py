@@ -33,5 +33,21 @@ class Player:
         board.board[self.row][self.col].players.append(self.name)
         return True
 
+    def move(self,m,board): 
+        if m == "u":
+            return self.moveUp(board)
+        elif m == "d":
+            return self.moveDown(board)
+        elif m == "l":
+            return self.moveLeft(board)
+        elif m == "r":
+            return self.moveRight(board)
+        return False
+
+    def collectCoin(self,board):
+        if self.name == "Searcher":
+            self.coins += board.board[self.row][self.col].coins
+            board.board[self.row][self.col].coins = 0
+
     def __str__(self):
         return '{}: {}'.format(self.name,self.coins)
