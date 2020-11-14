@@ -7,10 +7,13 @@ class Room:
         self.col = col
         self.coins = 0
         self.players = []
+        self.show = False
 
     def __str__(self):
         players = ",".join(p for p in self.players)
-        return '{},{}'.format(self.coins,players)
+        if self.show:
+            return '{},{}'.format(self.coins,players)
+        return '[{}]'.format(players)
 
 class Board:
     def __init__(self,size,ratio):
