@@ -25,9 +25,10 @@ board.board[monster.row][monster.col].players.append(monster.name)
 searcher.collectCoin(board)
 
 # Create a 2 dimensional array. A two dimensional
-boardview = [ [board.board[row][col].coins for col in range(GRID_NUM)] for row in range(GRID_NUM) ]
+boardview = [ [GREEN if board.board[row][col].coins == 1 else WHITE for col in range(GRID_NUM)] for row in range(GRID_NUM) ]
 for row in boardview: print(row)
-boardview[searcher.row][searcher.col] = 2
+boardview[searcher.row][searcher.col] = BLUE
+boardview[monster.row][monster.col] = RED
 
 # Initialize pygame
 pygame.init()
@@ -38,6 +39,7 @@ pygame.display.set_caption("Treasure Search Adventure")
 font = pygame.font.SysFont('arial', 20)
 text = font.render('Hello', True, BLACK)
 #rect = text.get_rect()
+#screen.blit(text, ((GRID_MARGIN + GRID_SIZE) * col + GRID_MARGIN, (GRID_MARGIN + GRID_SIZE) * row + GRID_MARGIN))
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
@@ -54,20 +56,29 @@ while not done:
             row = pos[1] // (GRID_SIZE + GRID_MARGIN)
             print("Click ", pos, "Grid coordinates: ", row, col)
         elif event.type == pygame.KEYDOWN:
-            boardview[searcher.row][searcher.col] = 0
-            if event.key == pygame.K_UP:
-                print('Up')
-                searcher.moveUp(board)
-            elif event.key == pygame.K_DOWN:
-                print('Down')
-                searcher.moveDown(board)
-            elif event.key == pygame.K_LEFT:
-                print('Left')
-                searcher.moveLeft(board)
-            elif event.key == pygame.K_RIGHT:
-                print('Right')
-                searcher.moveRight(board)
-            boardview[searcher.row][searcher.col] = 2
+            ### searcher is moving
+            if event.key in (pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT):
+                boardview[searcher.row][searcher.col] = WHITE
+                if event.key == pygame.K_UP:
+                    searcher.moveUp(board)
+                elif event.key == pygame.K_DOWN:
+                    searcher.moveDown(board)
+                elif event.key == pygame.K_LEFT:
+                    searcher.moveLeft(board)
+                elif event.key == pygame.K_RIGHT:
+                    searcher.moveRight(board)
+                boardview[searcher.row][searcher.col] = BLUE
+            elif event.key in (pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d):
+                boardview[monster.row][monster.col] = WHITE
+                if event.key == pygame.K_w:
+                    monster.moveUp(board)
+                elif event.key == pygame.K_s:
+                    monster.moveDown(board)
+                elif event.key == pygame.K_a:
+                    monster.moveLeft(board)
+                elif event.key == pygame.K_d:
+                    monster.moveRight(board)
+                boardview[monster.row][monster.col] = RED
 
 
     # Set the screen background
@@ -76,12 +87,7 @@ while not done:
     # Draw the board
     for row in range(GRID_NUM):
         for col in range(GRID_NUM):
-            color = WHITE
-            if boardview[row][col] == 1:
-                color = GREEN
-                screen.blit(text, ((GRID_MARGIN + GRID_SIZE) * col + GRID_MARGIN, (GRID_MARGIN + GRID_SIZE) * row + GRID_MARGIN))
-            elif boardview[row][col] == 2:
-                color = BLUE
+            color = boardview[row][col]
             pygame.draw.rect(screen,
                              color,
                              [(GRID_MARGIN + GRID_SIZE) * col + GRID_MARGIN,
