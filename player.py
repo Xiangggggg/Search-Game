@@ -59,9 +59,10 @@ class Player(pygame.sprite.Sprite):
             return self.moveRight(board)
         return False
 
-    def collectCoin(self,board):
+    def collectCoin(self,board,boardview):
         if self.name == "Searcher":
             self.coins += board.board[self.row][self.col].coins
+            boardview[self.row][self.col] = WHITE
             board.board[self.row][self.col].coins = 0
 
     def __str__(self):

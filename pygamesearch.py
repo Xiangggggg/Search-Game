@@ -12,13 +12,14 @@ searcher = Player("Searcher", 0, 0,"./searcher.png",0,0)
 monster = Player("Monster", GRID_NUM-1, GRID_NUM-1,"./monster.jpg",BOARD_SIZE-50,BOARD_SIZE-50)
 board.board[searcher.row][searcher.col].players.append(searcher.name)
 board.board[monster.row][monster.col].players.append(monster.name)
-searcher.collectCoin(board)
+
 players = [searcher,monster]
 global curPlayer
 curPlayer = 0
- 
+
 # Create a 2 dimensional array. A two dimensional
 boardview = [ [GOLD if board.board[row][col].coins == 1 else WHITE for col in range(GRID_NUM)] for row in range(GRID_NUM) ]
+searcher.collectCoin(board,boardview)
 
 # Set font/text
 font = pygame.font.SysFont('arial', 20)
@@ -35,7 +36,7 @@ def moveInput(player):
     print("{}'s turn.".format(player.name))
     m = event.key
     if player.move(m,board): 
-        player.collectCoin(board)
+        player.collectCoin(board,boardview)
         curPlayer = (curPlayer+1) % len(players)
     else: print("Invalid Move")
 
