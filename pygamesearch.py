@@ -44,6 +44,8 @@ def moveInput(player):
 
 done = False
 while not done:
+    if searcher.coins == 1/2 * pow(GRID_NUM,2) * RATIO or (searcher.col == monster.col and searcher.row == monster.col): 
+        done = True
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT: done = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
